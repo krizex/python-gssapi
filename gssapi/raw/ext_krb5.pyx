@@ -60,6 +60,7 @@ cdef extern from "python_gssapi_krb5.h":
     ctypedef gss_krb5_lucid_context_v1 gss_krb5_lucid_context_v1_t
 
     gss_OID GSS_KRB5_NT_PRINCIPAL_NAME
+    gss_OID GSS_KRB5_NT_X509_CERT
     int32_t _PY_GSSAPI_KRB5_TIMESTAMP
 
     # The krb5 specific types are defined generically as the type names differ
@@ -205,6 +206,8 @@ cdef class Krb5LucidContextV1(Krb5LucidContext):
 # Unfortunately MIT defines it as const - use the cast to silence warnings
 gsstypes.NameType.krb5_nt_principal_name = c_make_oid(
     <gss_OID>GSS_KRB5_NT_PRINCIPAL_NAME)
+
+gsstypes.NameType.x509_cert = c_make_oid(<gss_OID>GSS_KRB5_NT_X509_CERT)
 
 
 def krb5_ccache_name(const unsigned char[:] name):
